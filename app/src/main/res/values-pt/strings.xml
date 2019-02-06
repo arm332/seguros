@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">Seguros</string>
     <string name="app_version">2.0</string>
+    <string name="empty">Vazio</string>
     <string name="login">Entrar</string>
     <string name="password">Senha</string>
     <string name="password_error">Senha incorreta</string>

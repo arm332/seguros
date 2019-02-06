@@ -1,5 +1,6 @@
 package com.arm332.seguros2;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private static final String TAG = "MainActivity";
+    // private static final String TAG = "MainActivity";
     private SharedPreferences mPrefs = null;
     private String mPasswordHash = null;
     private EditText mPassword1;
@@ -62,8 +63,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             editor.apply();
         }
 
-//        Intent intent = new Intent(this, ListActivity.class);
-//        startActivity(intent);
+        Intent intent = new Intent(this, MasterActivity.class);
+        startActivity(intent);
         finish();
     }
 }
