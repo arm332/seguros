@@ -1,6 +1,7 @@
 package com.arm332.seguros2;
 
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -36,12 +37,27 @@ public class ListActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_refresh:
-                // Intent intent = new Intent(this, SyncActivity.class);
-                // startActivityForResult(intent, RC_SYNC);
+            case R.id.action_sync:
+                 Intent intent = new Intent(this, SyncActivity.class);
+                 startActivityForResult(intent, RC_SYNC);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RC_SYNC) {
+            if (resultCode == RESULT_OK) {
+                if (data != null) {
+                    String result = data.getStringExtra(SyncActivity.EXTRA_RESULT);
+                    // mListView.setAdapter(new ListAdapter(this, result));
+                    System.out.println(result);
+                }
+            }
         }
     }
 
