@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             editor.apply();
         }
 
-        Intent intent = new Intent(this, MasterActivity.class);
+        Intent intent = new Intent(this, ListActivity.class);
         startActivity(intent);
         finish();
     }

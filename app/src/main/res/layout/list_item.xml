@@ -9,7 +9,7 @@
     android:paddingStart="?attr/listPreferredItemPaddingLeft"
     android:paddingRight="?attr/listPreferredItemPaddingRight"
     android:paddingEnd="?attr/listPreferredItemPaddingRight"
-    tools:context=".MasterActivity">
+    tools:context=".ListActivity">
 
     <ImageView
         android:id="@+id/imageView"
