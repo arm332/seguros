@@ -6,4 +6,5 @@
     <string name="password">Password</string>
     <string name="password_error">Password incorrect</string>
     <string name="refresh">Refresh</string>
+    <string name="search">Search</string>
 </resources>

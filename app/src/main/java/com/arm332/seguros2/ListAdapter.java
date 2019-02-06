@@ -5,20 +5,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
-public class ListAdapter extends BaseAdapter {
-    private LayoutInflater mInflater;
-    private String[] mValues = {"Item 1", "Item 2", "Item 3", "Item 4", "Item 5"};
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-    ListAdapter(Context context) {
+public class ListAdapter extends BaseAdapter implements Filterable {
+    private LayoutInflater mInflater;
+    private ListFilter mFilter;
+    private String[] mOriginal;
+    private String[] mFiltered;
+
+    ListAdapter(Context context, String[] objects) {
         mInflater = LayoutInflater.from(context);
+        mFilter = new ListFilter();
+        mOriginal = objects;
+        mFiltered = objects;
     }
 
     @Override
     public int getCount() {
-        if (mValues != null) {
-            return mValues.length;
+        if (mFiltered != null) {
+            return mFiltered.length;
         }
 
         return 0;
@@ -26,8 +37,8 @@ public class ListAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        if (mValues != null) {
-            return mValues[position];
+        if (mFiltered != null) {
+            return mFiltered[position];
         }
 
         return null;
@@ -57,6 +68,48 @@ public class ListAdapter extends BaseAdapter {
 
         return convertView;
     }
+
+    @Override
+    public Filter getFilter() {
+        return mFilter;
+    }
+
+    //
+
+    private class ListFilter extends Filter {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results = new FilterResults();
+            List<String> filtered = new ArrayList<>();
+
+            if (constraint != null && constraint.length() != 0) {
+                String needle = constraint.toString().toUpperCase();
+
+                if (mOriginal != null && mOriginal.length != 0) {
+                    for (String original : mOriginal) {
+                        if (original.toUpperCase().startsWith(needle)) {
+                            filtered.add(original);
+                        }
+                    }
+                }
+            }
+            else {
+                filtered = Arrays.asList(mOriginal);
+            }
+
+            results.count = filtered.size();
+            results.values = filtered.toArray(new String[0]);
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            mFiltered = (String[]) results.values;
+            notifyDataSetChanged();
+        }
+    }
+
+    //
 
     private static class ViewHolder {
         TextView name;
