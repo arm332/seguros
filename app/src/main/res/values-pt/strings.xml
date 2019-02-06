@@ -8,4 +8,5 @@
     <string name="password_error">Senha incorreta</string>
     <string name="refresh">Atualizar</string>
     <string name="search">Procurar</string>
+    <string name="sync_text">Explica ao usuário o porquê o escopo é necessário</string>
 </resources>

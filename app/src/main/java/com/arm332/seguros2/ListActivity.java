@@ -13,7 +13,7 @@ import android.widget.ListView;
 import android.widget.SearchView;
 
 public class ListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, SearchView.OnQueryTextListener {
-    private static final String TAG = "ListActivity";
+    // private static final String TAG = "ListActivity";
     private static final Integer RC_SYNC = 1;
     private ListAdapter mAdapter;
     private SearchView mSearchView;
