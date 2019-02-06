@@ -23,7 +23,7 @@
         android:layout_above="@+id/password1"
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/ic_volkswagen_beetle" />
+        android:src="@drawable/ic_activity_main" />
 
     <EditText
         android:id="@+id/password1"
