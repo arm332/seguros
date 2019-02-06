@@ -1,5 +1,6 @@
 package com.arm332.seguros2;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -46,6 +47,9 @@ public class ListActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        System.out.println("onItemClick");
+        String item = (String) parent.getItemAtPosition(position);
+         Intent intent = new Intent(this, ItemActivity.class);
+         intent.putExtra(ItemActivity.EXTRA_ITEM, item);
+         startActivity(intent);
     }
 }
