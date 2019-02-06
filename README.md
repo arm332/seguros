@@ -16,4 +16,6 @@ Seguros is a simple Google Sheets reader.
 - Google API Client Libraries <https://developers.google.com/api-client-library/>
 - Google Sheets API Client Library for Java <https://developers.google.com/api-client-library/java/apis/sheets/v4>
 - Material Design Palette <https://www.materialpalette.com/>
+- Sample Andorid Apps <https://github.com/codepath/android_guides/wiki/Sample-Android-Apps>
 - Stack Overflow <https://stackoverflow.com/>
+- Vectr <https://vectr.com/>
