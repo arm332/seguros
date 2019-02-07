@@ -13,7 +13,7 @@ Seguros is a simple Google Sheets reader.
 - Converting 'ArrayList<String> to 'String[]' in Java <https://stackoverflow.com/q/4042434>
 - Drive API Client Library for Java <https://developers.google.com/api-client-library/java/apis/drive/v3>
 - GitHub <https://github.com/>
-- gitignore.io <https://www.gitignore.io/>
+- Gitignore.io <https://www.gitignore.io/>
 - Google API Client Libraries <https://developers.google.com/api-client-library/>
 - Google Sheets Android Quickstart <https://developers.google.com/sheets/quickstart/android>
 - Google Sheets API Client Library for Java <https://developers.google.com/api-client-library/java/apis/sheets/v4>
@@ -26,6 +26,7 @@ Seguros is a simple Google Sheets reader.
 - Integrating Google Sign-In into Your Android App <https://developers.google.com/identity/sign-in/android/sign-in>
 - InvalidArgumentException JKS not found sheets API <https://stackoverflow.com/a/51903519>
 - Material Design Palette <https://www.materialpalette.com/>
+- Missing autofillHints attribute <https://stackoverflow.com/a/53220205>
 - More than one file was found with OS independent path 'META-INF/LICENSE' <https://stackoverflow.com/q/44342455>
 - Sample Andorid Apps <https://github.com/codepath/android_guides/wiki/Sample-Android-Apps>
 - Search for Files and Team Drives <https://developers.google.com/drive/api/v3/search-parameters>
