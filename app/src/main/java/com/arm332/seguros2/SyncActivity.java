@@ -98,7 +98,7 @@ public class SyncActivity extends AppCompatActivity implements View.OnClickListe
                     this.getApplicationContext(),
                     Collections.singleton(DriveScopes.DRIVE_READONLY));
             credential.setSelectedAccount(account.getAccount());
-            // new SyncTask(this, credential).execute();
+            new SyncTask(this, credential).execute();
         }
     }
 }
