@@ -1,10 +1,8 @@
 package com.arm332.seguros2;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -19,21 +17,12 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.tasks.Task;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.JsonFactory;
-import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveScopes;
-import com.google.api.services.drive.model.File;
-import com.google.api.services.drive.model.FileList;
 
-import java.io.OutputStream;
 import java.util.Collections;
-import java.util.List;
 
 public class SyncActivity extends AppCompatActivity implements View.OnClickListener {
-    private static final String SPREADSHEET_NAME = "";
+    private static final String SPREADSHEET_NAME = "Seguros - editar somente esse aqui Adriana";
     private static final String TAG = "SyncActivity";
     private static final Integer RC_SIGN_IN = 1;
     private SharedPreferences mPrefs;
