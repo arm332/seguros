@@ -61,6 +61,7 @@ public class ListActivity extends AppCompatActivity implements AdapterView.OnIte
 
         if (requestCode == RC_SYNC) {
             if (resultCode == RESULT_OK) {
+                // TODO: Check for error messages
 //                if (data != null) {
 //                    String result = data.getStringExtra(SyncActivity.EXTRA_RESULT);
 //                    mListView.setAdapter(new ListAdapter(this, result));

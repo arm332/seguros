@@ -22,7 +22,7 @@ import com.google.api.services.drive.DriveScopes;
 import java.util.Collections;
 
 public class SyncActivity extends AppCompatActivity implements View.OnClickListener {
-    private static final String SPREADSHEET_NAME = "Seguros - editar somente esse aqui Adriana";
+    private static final String SPREADSHEET_NAME = "";
     private static final String TAG = "SyncActivity";
     private static final Integer RC_SIGN_IN = 1;
     private SharedPreferences mPrefs;
