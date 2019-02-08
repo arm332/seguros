@@ -9,13 +9,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 
 public class ListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, SearchView.OnQueryTextListener {
-    // private static final String TAG = "ListActivity";
+//    private static final String TAG = "ListActivity";
     private static final Integer RC_SYNC = 1;
-    private ListAdapter mAdapter;
+    private ListView mListView;
     private SearchView mSearchView;
 
     @Override
@@ -23,13 +24,10 @@ public class ListActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        String[] list = {"Chelsea Morse", "Adrienne Larson", "Eldon Boyd", "Glenna Marshall", "Ora Vaughan"};
-        mAdapter = new ListAdapter(this, list);
-
-        ListView listView = findViewById(R.id.listView);
-        listView.setAdapter(mAdapter);
-        listView.setEmptyView(findViewById(R.id.textView));
-        listView.setOnItemClickListener(this);
+        mListView = findViewById(R.id.listView);
+        mListView.setAdapter(new ListAdapter(this));
+        mListView.setEmptyView(findViewById(R.id.textView));
+        mListView.setOnItemClickListener(this);
     }
 
     @Override
@@ -46,9 +44,8 @@ public class ListActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_search:
-
-                return true;
+//            case R.id.action_search:
+//                return true;
             case R.id.action_sync:
                  Intent intent = new Intent(this, SyncActivity.class);
                  startActivityForResult(intent, RC_SYNC);
@@ -64,21 +61,24 @@ public class ListActivity extends AppCompatActivity implements AdapterView.OnIte
 
         if (requestCode == RC_SYNC) {
             if (resultCode == RESULT_OK) {
-                if (data != null) {
-                    String result = data.getStringExtra(SyncActivity.EXTRA_RESULT);
-                    // mListView.setAdapter(new ListAdapter(this, result));
-                    System.out.println(result);
-                }
+//                if (data != null) {
+//                    String result = data.getStringExtra(SyncActivity.EXTRA_RESULT);
+//                    mListView.setAdapter(new ListAdapter(this, result));
+//                    System.out.println(result);
+//                }
+                mListView.setAdapter(new ListAdapter(this));
             }
         }
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        String item = (String) parent.getItemAtPosition(position);
-         Intent intent = new Intent(this, ItemActivity.class);
-         intent.putExtra(ItemActivity.EXTRA_ITEM, item);
-         startActivity(intent);
+//        String item = (String) parent.getItemAtPosition(position);
+        ListAdapter adapter = (ListAdapter) mListView.getAdapter();
+        String item = adapter.getHTMLFromPosition(position);
+        Intent intent = new Intent(this, ItemActivity.class);
+        intent.putExtra(ItemActivity.EXTRA_ITEM, item);
+        startActivity(intent);
     }
 
     @Override
@@ -88,14 +88,15 @@ public class ListActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        mAdapter.getFilter().filter(newText);
+        ListAdapter adapter = (ListAdapter) mListView.getAdapter();
+        adapter.getFilter().filter(newText);
         return true;
     }
 
     @Override
     public void onBackPressed() {
         if (!mSearchView.isIconified()) {
-            //mSearchView.setIconified(true);
+//            mSearchView.setIconified(true);
             mSearchView.onActionViewCollapsed();
         } else {
             super.onBackPressed();
