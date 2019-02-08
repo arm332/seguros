@@ -22,6 +22,7 @@ Seguros is a simple Google Sheets reader.
 - Google Sign-In for Android <https://developers.google.com/identity/sign-in/android/>
 - How do I close a SearchView programmatically? <https://stackoverflow.com/q/17506230>
 - How to access google spreadsheet from android app without OAuth? <https://stackoverflow.com/q/29968907>
+- Html.fromHtml deprecated in Android N <https://stackoverflow.com/q/37904739>
 - Implementing SearchView in action bar <https://stackoverflow.com/q/21585326>
 - Integrating Google Sign-In into Your Android App <https://developers.google.com/identity/sign-in/android/sign-in>
 - InvalidArgumentException JKS not found sheets API <https://stackoverflow.com/a/51903519>
