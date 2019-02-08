@@ -28,6 +28,7 @@ Seguros is a simple Google Sheets reader.
 - Material Design Palette <https://www.materialpalette.com/>
 - Missing autofillHints attribute <https://stackoverflow.com/a/53220205>
 - More than one file was found with OS independent path 'META-INF/LICENSE' <https://stackoverflow.com/q/44342455>
+- Moving Past GoogleApiClient <https://android-developers.googleblog.com/2017/11/moving-past-googleapiclient_21.html>
 - Sample Andorid Apps <https://github.com/codepath/android_guides/wiki/Sample-Android-Apps>
 - Search for Files and Team Drives <https://developers.google.com/drive/api/v3/search-parameters>
 - Stack Overflow <https://stackoverflow.com/>

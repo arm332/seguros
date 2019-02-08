@@ -4,20 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_centerInParent="true"
     android:orientation="vertical"
-    android:gravity="center"
+    android:padding="24dp"
     tools:context=".SyncActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:text="@string/sync_text" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:hint="@string/spreadsheet_id"
+        android:inputType="text"
+        tools:ignore="Autofill" />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:buttonSize="wide" />
-
 </LinearLayout>
