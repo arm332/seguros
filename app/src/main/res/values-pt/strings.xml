@@ -9,5 +9,5 @@
     <string name="refresh">Atualizar</string>
     <string name="search">Procurar</string>
     <string name="sync_text">Explica ao usuário o porquê o escopo é necessário</string>
-    <string name="spreadsheet_id">Spreadheet ID</string>
+    <string name="spreadsheet_name">Nome da planilha</string>
 </resources>

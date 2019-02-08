@@ -66,7 +66,7 @@ public class ListActivity extends AppCompatActivity implements AdapterView.OnIte
 //                    mListView.setAdapter(new ListAdapter(this, result));
 //                    System.out.println(result);
 //                }
-                mListView.setAdapter(new ListAdapter(this));
+                 mListView.setAdapter(new ListAdapter(this));
             }
         }
     }

@@ -8,5 +8,5 @@
     <string name="refresh">Refresh</string>
     <string name="search">Search</string>
     <string name="sync_text">Explain to user why scope are needed</string>
-    <string name="spreadsheet_id">Spreadheet ID</string>
+    <string name="spreadsheet_name">Spreadheet name</string>
 </resources>

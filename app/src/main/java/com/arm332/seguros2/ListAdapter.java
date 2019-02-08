@@ -1,6 +1,7 @@
 package com.arm332.seguros2;
 
 import android.content.Context;
+import android.media.midi.MidiOutputPort;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,35 +13,29 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class ListAdapter extends BaseAdapter implements Filterable {
     private LayoutInflater mInflater;
-    private ListFilter mFilter = null;
-    private JSONArray mObjects;
-    private JSONArray mFiltered;
+    private ListFilter mFilter;
+    private List<List<String>> mObjects;
+    private List<List<String>> mFiltered;
 
     ListAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
-
-        try {
-            String jsonString = Utils.file2str(context);
-            JSONObject jsonObject = new JSONObject(jsonString);
-            mObjects = jsonObject.getJSONArray("values");
-            // mFiltered = mObjects;
-            getFilter().filter(null);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+        mObjects = Utils.loadData(context);
+        getFilter().filter(null);
     }
 
     @Override
     public int getCount() {
         if (mFiltered != null) {
-            return mFiltered.length();
+            return mFiltered.size();
         }
 
         return 0;
@@ -50,8 +45,8 @@ public class ListAdapter extends BaseAdapter implements Filterable {
     public Object getItem(int position) {
         if (mFiltered != null) {
             try {
-                JSONArray jsonArray = mFiltered.getJSONArray(position);
-                return jsonArray.getString(1);
+                List<String> values = mFiltered.get(position);
+                return values.get(1);
             }
             catch (Exception e) {
                 e.printStackTrace();
@@ -68,7 +63,7 @@ public class ListAdapter extends BaseAdapter implements Filterable {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder = null;
+        ViewHolder viewHolder;
 
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.list_item, parent, false);
@@ -77,7 +72,7 @@ public class ListAdapter extends BaseAdapter implements Filterable {
             convertView.setTag(viewHolder);
         }
         else {
-            viewHolder = (ViewHolder) convertView.getTag();;
+            viewHolder = (ViewHolder) convertView.getTag();
         }
 
         String item = (String) getItem(position);
@@ -96,22 +91,25 @@ public class ListAdapter extends BaseAdapter implements Filterable {
     }
 
     public String getHTMLFromPosition(int position) {
-        String result = null;
-
         if (mObjects != null) {
-            JSONArray headers = mObjects.optJSONArray(0);
+            List<String> headers = mObjects.get(0);
 
             if (headers != null) {
-                JSONArray line = mFiltered.optJSONArray(position);
+                List<String> line = mFiltered.get(position);
 
                 if (line != null) {
                     StringBuilder sb = new StringBuilder();
 
-                    for (int i = 0; i < headers.length(); i++) {
+                    // Skip last column (antigo)
+                    for (int i = 0; i < headers.size() - 1; i++) {
                         sb.append("<p><b>");
-                        sb.append(headers.optString(i));
+                        sb.append(headers.get(i));
                         sb.append("</b><br />");
-                        sb.append(line.optString(i));
+
+                        if (line.size() > i) {
+                            sb.append(line.get(i));
+                        }
+
                         sb.append("</p>");
                     }
 
@@ -129,54 +127,52 @@ public class ListAdapter extends BaseAdapter implements Filterable {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             FilterResults results = new FilterResults();
-            JSONArray filtered = new JSONArray();
-            String needle = null;
+            List<List<String>> filtered = new ArrayList<>();
+            String needle = "";
 
             if (constraint != null && constraint.length() != 0) {
                 needle = constraint.toString().trim().toUpperCase();
             }
 
-            if (mObjects != null && mObjects.length() != 0) {
+            if (mObjects != null) {
                 int blankLines = 0;
 
                 // Skip first line (column headers)
-                for (int i = 1; i < mObjects.length();i++) {
-                    JSONArray line = mObjects.optJSONArray(i);
+                for (int i = 1; i < mObjects.size(); i++) {
+                    List<String> line = mObjects.get(i);
 
-                    // Skip blank lines ad stop on 3 consecutive blank lines
-                    if (line != null && line.length() != 0) {
+                    // Skip blank lines
+                    if (line != null && line.size() > 1) {
+                        String title = line.get(1);
 
-                        if (needle != null && needle.length() != 0) {
-                            String name = line.optString(1);
-
-                            if (name != null && name.startsWith(needle)) {
-                                filtered.put(line);
-                                blankLines = 0;
+                        // Skip with blank second column (title)
+                        if (title != null && title.length() != 0) {
+                            if (title.startsWith(needle)) {
+                                filtered.add(line);
                             }
-                        }
-                        else {
-                            filtered.put(line);
+
                             blankLines = 0;
                         }
-                    }
-                    else if (blankLines < 3) {
-                        blankLines++;
-                    }
-                    else {
-                        break;
+                        else if (blankLines < 3) {
+                            blankLines++;
+                        }
+                        else {
+                            break;
+                        }
                     }
                 }
             }
 
-            results.count = filtered.length();
+            results.count = filtered.size();
             results.values = filtered;
 
             return results;
         }
 
         @Override
+        @SuppressWarnings("unchecked")
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            mFiltered = (JSONArray) results.values;
+            mFiltered = (List<List<String>>) results.values;
             notifyDataSetChanged();
         }
     }

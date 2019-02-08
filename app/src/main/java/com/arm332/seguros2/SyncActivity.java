@@ -1,5 +1,6 @@
 package com.arm332.seguros2;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -18,13 +19,23 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.tasks.Task;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveScopes;
+import com.google.api.services.drive.model.File;
+import com.google.api.services.drive.model.FileList;
 
+import java.io.OutputStream;
 import java.util.Collections;
+import java.util.List;
 
 public class SyncActivity extends AppCompatActivity implements View.OnClickListener {
-    public static final String TAG = "SyncActivity";
-    public static final Integer RC_SIGN_IN = 1;
+    private static final String SPREADSHEET_NAME = "";
+    private static final String TAG = "SyncActivity";
+    private static final Integer RC_SIGN_IN = 1;
     private SharedPreferences mPrefs;
     private String mSpreadsheetId;
     private EditText mEditText;
@@ -35,11 +46,11 @@ public class SyncActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sync);
 
-        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        mSpreadsheetId = mPrefs.getString("spreadsheet_id", null);
+//        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+//        mSpreadsheetId = mPrefs.getString("spreadsheet_id", null);
 
         mEditText = findViewById(R.id.editText);
-        mEditText.setText(mSpreadsheetId);
+        mEditText.setText(SPREADSHEET_NAME);
 
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
@@ -66,10 +77,10 @@ public class SyncActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.sign_in_button:
-                mSpreadsheetId = mEditText.getText().toString().trim();
-                SharedPreferences.Editor editor = mPrefs.edit();
-                editor.putString("spreadsheet_id", mSpreadsheetId);
-                editor.apply();
+//                mSpreadsheetId = mEditText.getText().toString().trim();
+//                SharedPreferences.Editor editor = mPrefs.edit();
+//                editor.putString("spreadsheet_id", mSpreadsheetId);
+//                editor.apply();
 
                 Intent signInIntent = mGoogleSignInClient.getSignInIntent();
                 startActivityForResult(signInIntent, RC_SIGN_IN);
@@ -107,7 +118,8 @@ public class SyncActivity extends AppCompatActivity implements View.OnClickListe
                     Collections.singleton(DriveScopes.DRIVE_READONLY));
             credential.setSelectedAccount(account.getAccount());
 
-            new SyncTask(this, credential).execute(mSpreadsheetId);
+            String spreadsheetName = mEditText.getText().toString().trim();
+            new SyncTask(this, credential).execute(spreadsheetName);
         }
     }
 }

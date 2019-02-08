@@ -2,12 +2,47 @@ package com.arm332.seguros2;
 
 import android.content.Context;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStreamReader;
 import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public final class Utils {
     public static final String VALUE_RANGE = "value_range.json";
+
+    public static List<List<String>> loadData(Context context) {
+        List<List<String>> list = new ArrayList<>();
+        FileInputStream fis = null;
+
+        try {
+            fis = context.openFileInput("data.csv");
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader br = new BufferedReader(isr);
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                list.add(Arrays.asList(line.split(",")));
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            if (fis != null) {
+                try {
+                    fis.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return list;
+    }
 
     public static String file2str(Context context) {
         FileInputStream fis = null;
