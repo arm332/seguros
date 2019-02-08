@@ -17,6 +17,6 @@ public class ItemActivity extends AppCompatActivity {
 
         String item = getIntent().getStringExtra(EXTRA_ITEM);
         TextView textView = findViewById(R.id.textView);
-        textView.setText(Html.fromHtml(item));
+        textView.setText(Utils.fromHtml(item));
     }
 }
