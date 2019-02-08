@@ -13,11 +13,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public final class Utils {
-    public static final String FILENAME = "data.csv";
+final class Utils {
+    private static final String FILENAME = "data.csv";
+    static final int TITLE_COLUMN = 1;
 
     @SuppressWarnings("deprecation")
-    public static Spanned fromHtml(String html){
+    static Spanned fromHtml(String html){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
         } else {
@@ -25,8 +26,8 @@ public final class Utils {
         }
     }
 
-    public static List<List<String>> loadData(Context context) {
-        List<List<String>> list = new ArrayList<>();
+    static String getItem(Context context, int position) {
+        StringBuilder sb = new StringBuilder();
         FileInputStream input = null;
 
         try {
@@ -35,8 +36,83 @@ public final class Utils {
             BufferedReader buffer = new BufferedReader(reader);
             String line;
 
-            while ((line = buffer.readLine()) != null) {
-                list.add(Arrays.asList(line.split(",")));
+            if ((line = buffer.readLine()) != null) {
+                String[] headers = line.split(",");
+                int lineNumber = 1;
+
+                while ((line = buffer.readLine()) != null) {
+                    if (lineNumber == position) {
+                        String[] values = line.split(",", -1);
+
+                        for (int i = 0; i < headers.length; i++) {
+                            sb.append("<p><b>");
+                            sb.append(headers[i]);
+                            sb.append("</b><br />");
+                            sb.append(values[i]);
+                            sb.append("</p>");
+                        }
+
+                        break;
+                    }
+
+                    lineNumber++;
+                }
+            }
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return sb.toString();
+    }
+
+    static List<List<Object>> getList(Context context) {
+        List<List<Object>> list = new ArrayList<>();
+        FileInputStream input = null;
+
+        try {
+            input = context.openFileInput(FILENAME);
+            InputStreamReader reader = new InputStreamReader(input);
+            BufferedReader buffer = new BufferedReader(reader);
+            String line;
+
+            // Skip first line (column headers)
+            if (buffer.readLine() != null) {
+                int blankLines = 0;
+                int lineNumber = 1;
+
+                while ((line = buffer.readLine()) != null) {
+                    String[] values = line.split(",");
+
+                    // Skip lines without value for second column (blank lines)
+                    if (values.length > TITLE_COLUMN && values[TITLE_COLUMN].length() > 0) {
+                        List<Object> item = new ArrayList<>();
+                        item.add(lineNumber);
+                        item.add(values[TITLE_COLUMN]);
+                        list.add(item);
+                        blankLines = 0;
+                    }
+                    else if (blankLines < 3) {
+                        // Count consecutive blank lines
+                        blankLines++;
+                    }
+                    else {
+                        // Stop on 3 or more blank lines
+                        break;
+                    }
+
+                    lineNumber++;
+                }
             }
         }
         catch (Exception e) {
@@ -55,58 +131,7 @@ public final class Utils {
         return list;
     }
 
-//    public static String file2str(Context context) {
-//        FileInputStream fis = null;
-//        String result = null;
-//
-//        try {
-//            fis = context.openFileInput(VALUE_RANGE);
-//            int len = fis.available();
-//            byte[] buf = new byte[len];
-//            int n = fis.read(buf);
-//            // fis.close();
-//
-//            result = new String(buf, "UTF-8");
-//        }
-//        catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        finally {
-//            if (fis != null) {
-//                try {
-//                    fis.close();
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//
-//        return result;
-//    }
-//
-//    public static void str2file(Context context, String text) {
-//        FileOutputStream fos = null;
-//
-//        try {
-//            fos = context.openFileOutput(VALUE_RANGE, Context.MODE_PRIVATE);
-//            byte[] buf = text.getBytes("UTF-8");
-//            fos.write(buf);
-//            // fos.close();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        finally {
-//            if (fos != null) {
-//                try {
-//                    fos.close();
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//    }
-
-    public static String str2hex(String text) {
+    static String str2hex(String text) {
         String result = null;
 
         try {

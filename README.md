@@ -26,6 +26,7 @@ Seguros is a simple Google Sheets reader.
 - Implementing SearchView in action bar <https://stackoverflow.com/q/21585326>
 - Integrating Google Sign-In into Your Android App <https://developers.google.com/identity/sign-in/android/sign-in>
 - InvalidArgumentException JKS not found sheets API <https://stackoverflow.com/a/51903519>
+- Java String split removed empty values <https://stackoverflow.com/q/14602062>
 - Material Design Palette <https://www.materialpalette.com/>
 - Missing autofillHints attribute <https://stackoverflow.com/a/53220205>
 - More than one file was found with OS independent path 'META-INF/LICENSE' <https://stackoverflow.com/q/44342455>

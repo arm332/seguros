@@ -73,11 +73,8 @@ public class ListActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        String item = (String) parent.getItemAtPosition(position);
-        ListAdapter adapter = (ListAdapter) mListView.getAdapter();
-        String item = adapter.getHTMLFromPosition(position);
         Intent intent = new Intent(this, ItemActivity.class);
-        intent.putExtra(ItemActivity.EXTRA_ITEM, item);
+        intent.putExtra(ItemActivity.EXTRA_ID, id);
         startActivity(intent);
     }
 

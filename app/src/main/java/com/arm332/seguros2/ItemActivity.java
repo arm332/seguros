@@ -6,8 +6,7 @@ import android.text.Html;
 import android.widget.TextView;
 
 public class ItemActivity extends AppCompatActivity {
-    public static final String EXTRA_ITEM = "com.arm332.seguros2.extra.Item";
-
+    public static final String EXTRA_ID = "com.arm332.seguros2.extra.ID";
     private static final String TAG = "ItemActivity";
 
     @Override
@@ -15,8 +14,9 @@ public class ItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item);
 
-        String item = getIntent().getStringExtra(EXTRA_ITEM);
+        Long id = getIntent().getLongExtra(EXTRA_ID, 0);
+        String html = Utils.getItem(this, id.intValue());
         TextView textView = findViewById(R.id.textView);
-        textView.setText(Utils.fromHtml(item));
+        textView.setText(Utils.fromHtml(html));
     }
 }

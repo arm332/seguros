@@ -15,12 +15,12 @@ import java.util.List;
 public class ListAdapter extends BaseAdapter implements Filterable {
     private LayoutInflater mInflater;
     private ListFilter mFilter;
-    private List<List<String>> mObjects;
-    private List<List<String>> mFiltered;
+    private List<List<Object>> mObjects;
+    private List<List<Object>> mFiltered;
 
     ListAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
-        mObjects = Utils.loadData(context);
+        mObjects = Utils.getList(context);
         getFilter().filter(null);
     }
 
@@ -36,8 +36,8 @@ public class ListAdapter extends BaseAdapter implements Filterable {
     @Override
     public Object getItem(int position) {
         if (mFiltered != null) {
-            List<String> values = mFiltered.get(position);
-            return values.get(2);
+            List<Object> values = mFiltered.get(position);
+            return values.get(Utils.TITLE_COLUMN);
         }
 
         return null;
@@ -45,7 +45,13 @@ public class ListAdapter extends BaseAdapter implements Filterable {
 
     @Override
     public long getItemId(int position) {
-        return position;
+        if (mFiltered != null) {
+            List<Object> values = mFiltered.get(position);
+            Integer lineNumber = (Integer) values.get(0);
+            return Long.valueOf(lineNumber);
+        }
+
+        return 0;
     }
 
     @Override
@@ -77,44 +83,13 @@ public class ListAdapter extends BaseAdapter implements Filterable {
         return mFilter;
     }
 
-    public String getHTMLFromPosition(int position) {
-        if (mObjects != null) {
-            List<String> headers = mObjects.get(0);
-
-            if (headers != null) {
-                List<String> line = mFiltered.get(position);
-
-                if (line != null) {
-                    StringBuilder sb = new StringBuilder();
-
-                    // Skip last column (antigo)
-                    for (int i = 0; i < headers.size() - 1; i++) {
-                        sb.append("<p><b>");
-                        sb.append(headers.get(i));
-                        sb.append("</b><br />");
-
-                        if (line.size() > i) {
-                            sb.append(line.get(i));
-                        }
-
-                        sb.append("</p>");
-                    }
-
-                    return sb.toString();
-                }
-            }
-        }
-
-        return null;
-    }
-
     //
 
     private class ListFilter extends Filter {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             FilterResults results = new FilterResults();
-            List<List<String>> filtered = new ArrayList<>();
+            List<List<Object>> filtered = new ArrayList<>();
             String needle = "";
 
             if (constraint != null && constraint.length() != 0) {
@@ -122,29 +97,14 @@ public class ListAdapter extends BaseAdapter implements Filterable {
             }
 
             if (mObjects != null) {
-                int blankLines = 0;
+                for (int i = 0; i < mObjects.size(); i++) {
+                    List<Object> line = mObjects.get(i);
 
-                // Skip first line (column headers)
-                for (int i = 1; i < mObjects.size(); i++) {
-                    List<String> line = mObjects.get(i);
+                    if (line != null) {
+                        String title = (String) line.get(Utils.TITLE_COLUMN);
 
-                    // Skip blank lines
-                    if (line != null && line.size() > 1) {
-                        String title = line.get(1);
-
-                        // Skip with blank second column (title)
-                        if (title != null && title.length() != 0) {
-                            if (title.startsWith(needle)) {
-                                filtered.add(line);
-                            }
-
-                            blankLines = 0;
-                        }
-                        else if (blankLines < 3) {
-                            blankLines++;
-                        }
-                        else {
-                            break;
+                        if (title != null && title.startsWith(needle)) {
+                            filtered.add(line);
                         }
                     }
                 }
@@ -159,7 +119,7 @@ public class ListAdapter extends BaseAdapter implements Filterable {
         @Override
         @SuppressWarnings("unchecked")
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            mFiltered = (List<List<String>>) results.values;
+            mFiltered = (List<List<Object>>) results.values;
             notifyDataSetChanged();
         }
     }
