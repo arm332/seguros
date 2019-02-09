@@ -20,16 +20,18 @@ import java.util.List;
 
 public class SyncTask extends AsyncTask<String, Void, String> {
     private static final String APPLICATION_NAME = "Seguros";
-    private WeakReference<Activity> mActivity;
+    private WeakReference<SyncActivity> mActivity;
     private GoogleAccountCredential mCredential;
 
-    public SyncTask(Activity activity, GoogleAccountCredential credential) {
+    public SyncTask(SyncActivity activity, GoogleAccountCredential credential) {
         mActivity = new WeakReference<>(activity);
         mCredential = credential;
     }
 
     @Override
     protected String doInBackground(String... params) {
+        String result = null;
+
         // HttpTransport transport = GoogleNetHttpTransport.newTrustedTransport(); // JKS not found
         // HttpTransport transport = AndroidHttp.newCompatibleTransport(); // Deprecated
         HttpTransport httpTransport = new NetHttpTransport();
@@ -51,7 +53,7 @@ public class SyncTask extends AsyncTask<String, Void, String> {
             List<File> files = fileList.getFiles();
 
             for (File file : files) {
-                Activity activity = mActivity.get();
+                SyncActivity activity = mActivity.get();
 
                 if (activity != null) {
                     // OutputStream outputStream = new ByteArrayOutputStream();
@@ -112,23 +114,21 @@ public class SyncTask extends AsyncTask<String, Void, String> {
 //                return valueRange.toString();
 //            }
         } catch (Exception e) {
-            e.printStackTrace();
+            result = e.getMessage();
+//            e.printStackTrace();
         }
 
-        return null;
+        return result;
     }
 
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
-        Activity activity = mActivity.get();
+        SyncActivity activity = mActivity.get();
 
         if (activity != null) {
-            Intent data = new Intent();
-            data.putExtra("result", result);
-            activity.setResult(Activity.RESULT_OK, data);
-            activity.finish();
+            activity.onTaskComplete(result);
         }
     }
 }

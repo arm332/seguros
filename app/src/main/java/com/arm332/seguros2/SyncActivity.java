@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -28,6 +29,7 @@ public class SyncActivity extends AppCompatActivity implements View.OnClickListe
     private SharedPreferences mPrefs;
     private String mSpreadsheetId;
     private EditText mEditText;
+    private SignInButton mSignInButton;
     private GoogleSignInClient mGoogleSignInClient = null;
 
     @Override
@@ -52,8 +54,8 @@ public class SyncActivity extends AppCompatActivity implements View.OnClickListe
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         // Set the dimensions of the sign-in button.
-        SignInButton signInButton = findViewById(R.id.sign_in_button);
-        signInButton.setOnClickListener(this);
+        mSignInButton = findViewById(R.id.sign_in_button);
+        mSignInButton.setOnClickListener(this);
 
         // Check for existing Google Sign In account, if the user is already signed in
         // the GoogleSignInAccount will be non-null.
@@ -107,8 +109,23 @@ public class SyncActivity extends AppCompatActivity implements View.OnClickListe
                     Collections.singleton(DriveScopes.DRIVE_READONLY));
             credential.setSelectedAccount(account.getAccount());
 
+            mEditText.setEnabled(false);
+            mSignInButton.setEnabled(false);
+
             String spreadsheetName = mEditText.getText().toString().trim();
             new SyncTask(this, credential).execute(spreadsheetName);
+        }
+    }
+
+    public void onTaskComplete(String result) {
+        if (result != null) {
+            Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+            mSignInButton.setEnabled(true);
+            mEditText.setEnabled(true);
+        }
+        else {
+            setResult(RESULT_OK);
+            finish();
         }
     }
 }
