@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    android:padding="?attr/dialogPreferredPadding"
+    android:padding="@dimen/margin_size"
     tools:context=".MainActivity">
 
     <TextView
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/image1"
         android:layout_centerHorizontal="true"
-        android:inputType="textPassword"
+        android:inputType="numberPassword"
         android:imeOptions="actionNext"
         android:hint="@string/password"
         tools:ignore="Autofill" />
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true"
-        android:inputType="textPassword"
+        android:inputType="numberPassword"
         android:imeOptions="actionDone"
         android:hint="@string/password"
         tools:ignore="Autofill" />

@@ -30,6 +30,11 @@
         android:layout_marginStart="?attr/listPreferredItemPaddingLeft"
         android:layout_toRightOf="@+id/imageView"
         android:layout_toEndOf="@+id/imageView"
-        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:maxLines="1"
+        android:textColor="@color/textPrimary"
+        android:textSize="@dimen/text_size"
+        android:textStyle="bold"
         android:text="@string/app_name"/>
+
+    <!--android:textAppearance="?android:attr/textAppearanceListItemSmall"-->
 </RelativeLayout>
