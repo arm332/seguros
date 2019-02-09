@@ -57,6 +57,5 @@
         android:layout_centerHorizontal="true"
         android:clickable="true"
         android:focusable="true"
-        android:autoLink="all"
         android:text="@string/app_version" />
 </RelativeLayout>
