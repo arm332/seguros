@@ -34,7 +34,6 @@
         android:layout_below="@+id/image1"
         android:layout_centerHorizontal="true"
         android:inputType="numberPassword"
-        android:imeOptions="actionNext"
         android:hint="@string/password"
         tools:ignore="Autofill" />
 
@@ -45,9 +44,17 @@
         android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true"
         android:inputType="numberPassword"
-        android:imeOptions="actionDone"
         android:hint="@string/password"
         tools:ignore="Autofill" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_centerInParent="true"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/login" />
 
     <TextView
         android:id="@+id/textView3"
