@@ -14,7 +14,7 @@ Seguros is a simple Google Sheets reader.
 
 - Android <https://www.android.com/>
 - Android Studio <https://developer.android.com/studio/>
-- Converting "ArrayList<String>" to "String[]" in Java <https://stackoverflow.com/q/4042434>
+- Converting 'ArrayList<String>' to 'String[]' in Java <https://stackoverflow.com/q/4042434>
 - Drive API Client Library for Java <https://developers.google.com/api-client-library/java/apis/drive/v3>
 - GitHub <https://github.com/>
 - Gitignore.io <https://www.gitignore.io/>
