@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -30,6 +31,7 @@ public class SyncActivity extends AppCompatActivity implements View.OnClickListe
     private String mSpreadsheetId;
     private EditText mEditText;
     private SignInButton mSignInButton;
+    private ProgressBar mProgressBar;
     private GoogleSignInClient mGoogleSignInClient = null;
 
     @Override
@@ -42,6 +44,9 @@ public class SyncActivity extends AppCompatActivity implements View.OnClickListe
 
         mEditText = findViewById(R.id.editText);
         mEditText.setText(SPREADSHEET_NAME);
+
+        mProgressBar = findViewById(R.id.progressBar);
+        mProgressBar.setVisibility(View.GONE);
 
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
@@ -111,6 +116,7 @@ public class SyncActivity extends AppCompatActivity implements View.OnClickListe
 
             mEditText.setEnabled(false);
             mSignInButton.setEnabled(false);
+            mProgressBar.setVisibility(View.VISIBLE);
 
             String spreadsheetName = mEditText.getText().toString().trim();
             new SyncTask(this, credential).execute(spreadsheetName);
@@ -120,6 +126,8 @@ public class SyncActivity extends AppCompatActivity implements View.OnClickListe
     public void onTaskComplete(String result) {
         if (result != null) {
             Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+
+            mProgressBar.setVisibility(View.GONE);
             mSignInButton.setEnabled(true);
             mEditText.setEnabled(true);
         }
