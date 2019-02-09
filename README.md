@@ -6,6 +6,10 @@ Seguros is a simple Google Sheets reader.
 
 - Volkswagen Beetle free icon <https://www.flaticon.com/free-icon/volkswagen-beetle_83631> made by Freepik <http://www.freepik.com/> from <https://www.flaticon.com>
 
+## [Privacy Policy](docs/PRIVACY.md)
+
+## [Terms of Service](docs/TERMS.md)
+
 ## Thanks
 
 - Android <https://www.android.com/>
