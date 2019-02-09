@@ -42,6 +42,15 @@ public class ListActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        System.out.println("count: " + mListView.getCount());
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        searchItem.setVisible((mListView.getCount() != 0));
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
 //            case R.id.action_search:
@@ -68,6 +77,7 @@ public class ListActivity extends AppCompatActivity implements AdapterView.OnIte
 //                    System.out.println(result);
 //                }
                  mListView.setAdapter(new ListAdapter(this));
+                invalidateOptionsMenu();
             }
         }
     }

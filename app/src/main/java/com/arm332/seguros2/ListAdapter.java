@@ -21,7 +21,7 @@ public class ListAdapter extends BaseAdapter implements Filterable {
     ListAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
         mObjects = Utils.getList(context);
-        getFilter().filter(null);
+        mFiltered = mObjects;
     }
 
     @Override
