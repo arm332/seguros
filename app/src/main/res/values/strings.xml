@@ -8,4 +8,5 @@
     <string name="search">Search</string>
     <string name="sync_text">Explain to user why scope are needed</string>
     <string name="spreadsheet_name">Spreadheet name</string>
+    <string name="version_url">https://github.com/arm332/seguros/</string>
 </resources>
