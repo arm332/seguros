@@ -1,8 +1,7 @@
 <resources>
-    <string name="app_name">Seguros2</string>
+    <string name="app_name">Seguros</string>
     <string name="app_version">v2.0</string>
     <string name="empty">Empty</string>
-    <string name="login">Log in</string>
     <string name="password">Password</string>
     <string name="password_error">Password incorrect</string>
     <string name="refresh">Refresh</string>

@@ -4,16 +4,20 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, TextView.OnEditorActionListener {
     // private static final String TAG = "MainActivity";
     private SharedPreferences mPrefs = null;
     private String mPasswordHash = null;
     private EditText mPassword1;
     private EditText mPassword2;
+    private TextView mTextView1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,49 +26,69 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mPrefs = getSharedPreferences(getPackageName() + "_preferences", MODE_PRIVATE);
         mPasswordHash = mPrefs.getString("password_hash", null);
-        mPassword1 = findViewById(R.id.password1);
-        mPassword2 = findViewById(R.id.password2);
-        Button button1 = findViewById(R.id.button1);
-        button1.setOnClickListener(this);
+
+        mPassword1 = findViewById(R.id.textView1);
+        mPassword1.setOnEditorActionListener(this);
+
+        mPassword2 = findViewById(R.id.textView2);
+        mPassword2.setOnEditorActionListener(this);
+
+        TextView textView3 = findViewById(R.id.textView3);
+        textView3.setOnClickListener(this);
 
         if (mPasswordHash != null) {
-            // mPassword1.setImeOptions(EditorInfo.IME_ACTION_DONE);
+            mPassword1.setImeOptions(EditorInfo.IME_ACTION_DONE);
             mPassword2.setVisibility(View.GONE);
         }
     }
 
     @Override
-    public void onClick(View v) {
-        String password = mPassword1.getText().toString().trim();
+    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
+            String password = mPassword1.getText().toString().trim();
 
-        if (password.isEmpty()) {
-            mPassword1.setError(getString(R.string.password_error));
-            return;
-        }
-
-        String passwordHash = Utils.str2hex(password);
-
-        if (mPasswordHash != null) {
-            if (!mPasswordHash.equals(passwordHash)) {
+            if (password.isEmpty()) {
                 mPassword1.setError(getString(R.string.password_error));
-                return;
-            }
-        }
-        else {
-            String confirmation = mPassword2.getText().toString().trim();
-
-            if (!confirmation.equals(password)) {
-                mPassword2.setError(getString(R.string.password_error));
-                return;
+                return true;
             }
 
-            SharedPreferences.Editor editor = mPrefs.edit();
-            editor.putString("password_hash", passwordHash);
-            editor.apply();
+            String passwordHash = Utils.str2hex(password);
+
+            if (mPasswordHash != null) {
+                if (!mPasswordHash.equals(passwordHash)) {
+                    mPassword1.setError(getString(R.string.password_error));
+                    return true;
+                }
+            }
+            else {
+                String confirmation = mPassword2.getText().toString().trim();
+
+                if (!confirmation.equals(password)) {
+                    mPassword2.setError(getString(R.string.password_error));
+                    return true;
+                }
+
+                SharedPreferences.Editor editor = mPrefs.edit();
+                editor.putString("password_hash", passwordHash);
+                editor.apply();
+            }
+
+            Intent intent = new Intent(this, ListActivity.class);
+            startActivity(intent);
+            finish();
+
+            return true;
         }
 
-        Intent intent = new Intent(this, ListActivity.class);
-        startActivity(intent);
-        finish();
+        return false;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.textView3:
+                System.out.println("textView3");
+                break;
+        }
     }
 }
