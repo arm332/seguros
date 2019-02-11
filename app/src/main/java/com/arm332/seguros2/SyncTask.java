@@ -21,7 +21,7 @@ public class SyncTask extends AsyncTask<String, Void, String> {
     private WeakReference<SyncActivity> mActivity;
     private GoogleAccountCredential mCredential;
 
-    public SyncTask(SyncActivity activity, GoogleAccountCredential credential) {
+    SyncTask(SyncActivity activity, GoogleAccountCredential credential) {
         mActivity = new WeakReference<>(activity);
         mCredential = credential;
     }
