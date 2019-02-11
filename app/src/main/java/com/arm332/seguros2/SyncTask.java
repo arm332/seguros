@@ -48,74 +48,33 @@ public class SyncTask extends AsyncTask<String, Void, String> {
                     .setSpaces("drive")
                     .execute();
 
-            System.out.println(fileList.toString());
+//            System.out.println(fileList.toString());
 
             List<File> files = fileList.getFiles();
 
-            for (File file : files) {
+            if (files.size() != 0) {
+                File file = files.get(0);
+
                 SyncActivity activity = mActivity.get();
 
                 if (activity != null) {
+                    Context context = activity.getApplicationContext();
+
                     // OutputStream outputStream = new ByteArrayOutputStream();
-                    OutputStream outputStream = activity.openFileOutput("data.csv",
+                    OutputStream outputStream = context.openFileOutput("data.csv",
                             Context.MODE_PRIVATE);
                     driveService.files().export(file.getId(), "text/csv")
                             .executeMediaAndDownloadTo(outputStream);
                 }
             }
+            else {
+                // TODO: pt-br this
+                result = "Spreadsheet not found";
+            }
 
-//            Sheets service = new Sheets.Builder(httpTransport, jsonFactory, mCredential)
-//                    .setApplicationName(APPLICATION_NAME)
-//                    .build();
-//
-//            Spreadsheet spreadsheet = service.spreadsheets().get(spreadsheetId).execute();
-//
-////                String jsonString = spreadsheet.toString();
-////                Log.d(TAG, "jsonString: " + jsonString);
-////                jsonString: {"properties":{"autoRecalc":"ON_CHANGE","defaultFormat":{"backgroundColor":{"blue":1.0,"green":1.0,"red":1.0},"padding":{"left":3,"right":3},"textFormat":{"bold":false,"fontFamily":"Arial","fontSize":10,"foregroundColor":{},"italic":false,"strikethrough":false,"underline":false},"verticalAlignment":"BOTTOM","wrapStrategy":"OVERFLOW_CELL"},"locale":"pt_BR","timeZone":"Etc/GMT","title":"Seguros - editar somente esse aqui Adriana"},"sheets":[{"properties":{"gridProperties":{"columnCount":32,"rowCount":929},"index":0,"sheetId":2067206578,"sheetType":"GRID","title":"SEGUROS"}},{"properties":{"gridProperties":{"columnCount":26,"rowCount":1000},"index":1,"sheetId":1153567913,"sheetType":"GRID","title":"CADASTRO DOM BOSCO"}}],"spreadsheetId":"1un8-X5z1ddAt6kxN_FBb42eCLkmVw6FakfWR4a89U3g","spreadsheetUrl":"https://docs.google.com/spreadsheets/d/1un8-X5z1ddAt6kxN_FBb42eCLkmVw6FakfWR4a89U3g/edit"}
-//
-//            SpreadsheetProperties spreadsheetProperties = spreadsheet.getProperties();
-////                String spreadsheetTitle = spreadsheetProperties .getTitle();
-////                Log.d(TAG, "spreadsheetTitle: " + spreadsheetTitle);
-//
-//            List<Sheet> sheets = spreadsheet.getSheets();
-//
-//            if (sheets.size() != 0) {
-//                SheetProperties sheetProperties = sheets.get(0).getProperties();
-//                String sheetTitle = sheetProperties.getTitle();
-////                    Log.d(TAG, "sheetTitle: " + sheetTitle);
-////                    Log.d(TAG, "columnCount: " + sheetProperties.getGridProperties().getColumnCount()); // 32
-////                    Log.d(TAG, "frozenRowCount: " + sheetProperties.getGridProperties().getFrozenRowCount()); // null
-////                    Log.d(TAG, "rowCount: " + sheetProperties.getGridProperties().getRowCount()); // 929
-//
-//                ValueRange valueRange = service.spreadsheets().values()
-//                        .get(spreadsheetId, sheetTitle)
-//                        .execute();
-//
-////                String jsonString = valueRange.toString();
-////                Log.d("FOO", "jsonString: " + jsonString);
-//
-////                List<List<Object>> values = valueRange.getValues();
-////                Log.d(TAG, "values.size: " + values.size()); // 308
-//
-////                for (List<Object> row : values) {
-////                    for (Object col : row) {
-////                        String val = col.toString();
-////                    }
-////                }
-//
-////                // Convert List<Object> to List<String> <https://stackoverflow.com/a/4581429>
-////                List<String> strings = new ArrayList<>(valueRange.size());
-////
-////                for (Object object : list) {
-////                    strings.add(String.valueOf(object));
-////                }
-//
-//                return valueRange.toString();
-//            }
         } catch (Exception e) {
             result = e.getMessage();
-//            e.printStackTrace();
+            e.printStackTrace();
         }
 
         return result;
@@ -128,7 +87,7 @@ public class SyncTask extends AsyncTask<String, Void, String> {
         SyncActivity activity = mActivity.get();
 
         if (activity != null) {
-            activity.onTaskComplete(result);
+            activity.onSyncTaskComplete(result);
         }
     }
 }

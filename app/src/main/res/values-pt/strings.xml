@@ -8,7 +8,12 @@
     <string name="password_error">Senha incorreta</string>
     <string name="refresh">Atualizar</string>
     <string name="search">Procurar</string>
-    <string name="sync_text">Explica ao usuário o porquê o escopo é necessário</string>
+    <string name="sync_text">Para apresentar a sua planilha de forma simpes e segura, o aplicativo
+        precisa da sua autorização para ler todos os arquivos do Google Drive. O aplicativo NÃO vai
+        ler todos os arquivos.\n\nO aplicativo vai ler APENAS a planilha cujo nome você informar
+        abaixo. Mas, para encontrar a sua planilha pelo nome, o aplicativo precisa dessa
+        permissão.</string>
+    <string name="spreadsheet_error">Nome incorreto</string>
     <string name="spreadsheet_name">Nome da planilha</string>
     <string name="version_url">https://github.com/arm332/seguros/</string>
 </resources>

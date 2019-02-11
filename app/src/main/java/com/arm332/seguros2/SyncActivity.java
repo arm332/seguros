@@ -3,11 +3,13 @@ package com.arm332.seguros2;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -24,11 +26,11 @@ import com.google.api.services.drive.DriveScopes;
 import java.util.Collections;
 
 public class SyncActivity extends AppCompatActivity implements View.OnClickListener {
-    private static final String SPREADSHEET_NAME = "";
+    private static final String SPREADSHEET_NAME = "spreadsheet_name";
     private static final String TAG = "SyncActivity";
     private static final Integer RC_SIGN_IN = 1;
     private SharedPreferences mPrefs;
-    private String mSpreadsheetId;
+    private TextView mTextView;
     private EditText mEditText;
     private SignInButton mSignInButton;
     private ProgressBar mProgressBar;
@@ -39,14 +41,18 @@ public class SyncActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sync);
 
-//        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-//        mSpreadsheetId = mPrefs.getString("spreadsheet_id", null);
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String spreadsheetName = mPrefs.getString(SPREADSHEET_NAME, "");
+
+        mTextView = findViewById(R.id.textView);
+        mTextView.setVisibility(View.GONE);
 
         mEditText = findViewById(R.id.editText);
-        mEditText.setText(SPREADSHEET_NAME);
+        mEditText.setText(spreadsheetName);
+        mEditText.setVisibility(View.GONE);
 
         mProgressBar = findViewById(R.id.progressBar);
-        mProgressBar.setVisibility(View.GONE);
+//        mProgressBar.setVisibility(View.VISIBLE);
 
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
@@ -60,26 +66,56 @@ public class SyncActivity extends AppCompatActivity implements View.OnClickListe
 
         // Set the dimensions of the sign-in button.
         mSignInButton = findViewById(R.id.sign_in_button);
+//        mSignInButton.setSize(SignInButton.SIZE_STANDARD);
         mSignInButton.setOnClickListener(this);
+        mSignInButton.setVisibility(View.GONE);
 
         // Check for existing Google Sign In account, if the user is already signed in
         // the GoogleSignInAccount will be non-null.
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        //
-        updateUI(account);
+
+        if (account != null) {
+            GoogleAccountCredential credential = GoogleAccountCredential.usingOAuth2(
+                    getApplicationContext(),
+                    Collections.singleton(DriveScopes.DRIVE_READONLY));
+            credential.setSelectedAccount(account.getAccount());
+
+            if (spreadsheetName.length() != 0) {
+                new SyncTask(this, credential).execute(spreadsheetName);
+            }
+            else {
+                mTextView.setVisibility(View.VISIBLE);
+                mEditText.setVisibility(View.VISIBLE);
+                mSignInButton.setVisibility(View.VISIBLE);
+                mProgressBar.setVisibility(View.GONE);
+            }
+        }
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.sign_in_button:
-//                mSpreadsheetId = mEditText.getText().toString().trim();
-//                SharedPreferences.Editor editor = mPrefs.edit();
-//                editor.putString("spreadsheet_id", mSpreadsheetId);
-//                editor.apply();
 
-                Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-                startActivityForResult(signInIntent, RC_SIGN_IN);
+                String spreadsheetName = mEditText.getText().toString().trim();
+
+                if (spreadsheetName.length() != 0) {
+                    mTextView.setVisibility(View.GONE);
+                    mEditText.setVisibility(View.GONE);
+                    mSignInButton.setVisibility(View.GONE);
+                    mProgressBar.setVisibility(View.VISIBLE);
+
+                    SharedPreferences.Editor editor = mPrefs.edit();
+                    editor.putString(SPREADSHEET_NAME, spreadsheetName);
+                    editor.apply();
+
+                    Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+                    startActivityForResult(signInIntent, RC_SIGN_IN);
+                }
+                else {
+                    mEditText.setError(getString(R.string.spreadsheet_error));
+                }
+
                 break;
         }
     }
@@ -97,39 +133,66 @@ public class SyncActivity extends AppCompatActivity implements View.OnClickListe
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 // Signed in successfully, show authenticated UI.
-                updateUI(account);
+//                updateUI(account);
+
+                if (account != null) {
+                    GoogleAccountCredential credential = GoogleAccountCredential.usingOAuth2(
+                            getApplicationContext(),
+                            Collections.singleton(DriveScopes.DRIVE_READONLY));
+                    credential.setSelectedAccount(account.getAccount());
+
+                    String spreadsheetName = mEditText.getText().toString().trim();
+
+                    if (spreadsheetName.length() != 0) {
+                        new SyncTask(this, credential).execute(spreadsheetName);
+                    }
+                    else {
+                        mTextView.setVisibility(View.VISIBLE);
+                        mEditText.setVisibility(View.VISIBLE);
+                        mSignInButton.setVisibility(View.VISIBLE);
+                        mProgressBar.setVisibility(View.GONE);
+                    }
+                }
             } catch (ApiException e) {
                 // The ApiException status code indicates the detailed failure reason.
                 // Please refer to the GoogleSignInStatusCodes class reference for more information.
                 Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
-                updateUI(null);
+//                updateUI(null);
+
+                mTextView.setVisibility(View.VISIBLE);
+                mEditText.setVisibility(View.VISIBLE);
+                mSignInButton.setVisibility(View.VISIBLE);
+                mProgressBar.setVisibility(View.GONE);
             }
         }
     }
 
-    public void updateUI(GoogleSignInAccount account) {
-        if (account != null) {
-            GoogleAccountCredential credential = GoogleAccountCredential.usingOAuth2(
-                    getApplicationContext(),
-                    Collections.singleton(DriveScopes.DRIVE_READONLY));
-            credential.setSelectedAccount(account.getAccount());
+//    public void updateUI(GoogleSignInAccount account) {
+//        if (account != null) {
+//            GoogleAccountCredential credential = GoogleAccountCredential.usingOAuth2(
+//                    getApplicationContext(),
+//                    Collections.singleton(DriveScopes.DRIVE_READONLY));
+//            credential.setSelectedAccount(account.getAccount());
+//
+//            String spreadsheetName = mEditText.getText().toString().trim();
+//            new SyncTask(this, credential).execute(spreadsheetName);
+//        }
+//        else {
+//            mTextView.setVisibility(View.VISIBLE);
+//            mEditText.setVisibility(View.VISIBLE);
+//            mSignInButton.setVisibility(View.VISIBLE);
+//            mProgressBar.setVisibility(View.GONE);
+//        }
+//    }
 
-            mEditText.setEnabled(false);
-            mSignInButton.setEnabled(false);
-            mProgressBar.setVisibility(View.VISIBLE);
-
-            String spreadsheetName = mEditText.getText().toString().trim();
-            new SyncTask(this, credential).execute(spreadsheetName);
-        }
-    }
-
-    public void onTaskComplete(String result) {
+    public void onSyncTaskComplete(String result) {
         if (result != null) {
-            Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
-
+            mTextView.setVisibility(View.VISIBLE);
+            mEditText.setVisibility(View.VISIBLE);
+            mSignInButton.setVisibility(View.VISIBLE);
             mProgressBar.setVisibility(View.GONE);
-            mSignInButton.setEnabled(true);
-            mEditText.setEnabled(true);
+
+            Toast.makeText(this, result, Toast.LENGTH_LONG).show();
         }
         else {
             setResult(RESULT_OK);
