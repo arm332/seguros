@@ -1,8 +1,6 @@
 package com.arm332.seguros2;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;

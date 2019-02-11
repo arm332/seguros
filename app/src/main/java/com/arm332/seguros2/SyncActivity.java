@@ -80,7 +80,7 @@ public class SyncActivity extends AppCompatActivity implements View.OnClickListe
                     Collections.singleton(DriveScopes.DRIVE_READONLY));
             credential.setSelectedAccount(account.getAccount());
 
-            if (spreadsheetName.length() != 0) {
+            if (spreadsheetName != null && spreadsheetName.length() != 0) {
                 new SyncTask(this, credential).execute(spreadsheetName);
             }
             else {
