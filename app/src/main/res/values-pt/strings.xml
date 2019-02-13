@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Seguros</string>
-    <string name="app_version">v2.2</string>
+    <string name="app_version">v2.3</string>
     <string name="empty">Vazio</string>
     <string name="login">Entrar</string>
     <string name="password">Senha</string>
