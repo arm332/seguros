@@ -64,5 +64,5 @@
         android:layout_centerHorizontal="true"
         android:clickable="true"
         android:focusable="true"
-        android:text="@string/app_version" />
+        android:text="@string/version_num" />
 </RelativeLayout>

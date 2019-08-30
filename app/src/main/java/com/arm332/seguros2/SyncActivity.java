@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -42,17 +42,17 @@ public class SyncActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_sync);
 
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String spreadsheetName = mPrefs.getString(SPREADSHEET_NAME, "");
+        String spreadsheetName = mPrefs.getString(SPREADSHEET_NAME, "Seguros - editar somente esse aqui Adriana");
 
         mTextView = findViewById(R.id.textView);
-        mTextView.setVisibility(View.GONE);
+//        mTextView.setVisibility(View.GONE);
 
         mEditText = findViewById(R.id.editText);
         mEditText.setText(spreadsheetName);
-        mEditText.setVisibility(View.GONE);
+//        mEditText.setVisibility(View.GONE);
 
         mProgressBar = findViewById(R.id.progressBar);
-//        mProgressBar.setVisibility(View.VISIBLE);
+        mProgressBar.setVisibility(View.GONE);
 
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
@@ -68,7 +68,7 @@ public class SyncActivity extends AppCompatActivity implements View.OnClickListe
         mSignInButton = findViewById(R.id.sign_in_button);
 //        mSignInButton.setSize(SignInButton.SIZE_STANDARD);
         mSignInButton.setOnClickListener(this);
-        mSignInButton.setVisibility(View.GONE);
+//        mSignInButton.setVisibility(View.GONE);
 
         // Check for existing Google Sign In account, if the user is already signed in
         // the GoogleSignInAccount will be non-null.
@@ -82,41 +82,35 @@ public class SyncActivity extends AppCompatActivity implements View.OnClickListe
 
             if (spreadsheetName != null && spreadsheetName.length() != 0) {
                 new SyncTask(this, credential).execute(spreadsheetName);
-            }
-            else {
-                mTextView.setVisibility(View.VISIBLE);
-                mEditText.setVisibility(View.VISIBLE);
-                mSignInButton.setVisibility(View.VISIBLE);
-                mProgressBar.setVisibility(View.GONE);
+                mTextView.setVisibility(View.GONE);
+                mEditText.setVisibility(View.GONE);
+                mSignInButton.setVisibility(View.GONE);
+                mProgressBar.setVisibility(View.VISIBLE);
             }
         }
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.sign_in_button:
+        if (v.getId() == R.id.sign_in_button) {
+            String spreadsheetName = mEditText.getText().toString().trim();
 
-                String spreadsheetName = mEditText.getText().toString().trim();
+            if (spreadsheetName.length() != 0) {
+                mTextView.setVisibility(View.GONE);
+                mEditText.setVisibility(View.GONE);
+                mSignInButton.setVisibility(View.GONE);
+                mProgressBar.setVisibility(View.VISIBLE);
 
-                if (spreadsheetName.length() != 0) {
-                    mTextView.setVisibility(View.GONE);
-                    mEditText.setVisibility(View.GONE);
-                    mSignInButton.setVisibility(View.GONE);
-                    mProgressBar.setVisibility(View.VISIBLE);
+                SharedPreferences.Editor editor = mPrefs.edit();
+                editor.putString(SPREADSHEET_NAME, spreadsheetName);
+                editor.apply();
 
-                    SharedPreferences.Editor editor = mPrefs.edit();
-                    editor.putString(SPREADSHEET_NAME, spreadsheetName);
-                    editor.apply();
-
-                    Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-                    startActivityForResult(signInIntent, RC_SIGN_IN);
-                }
-                else {
-                    mEditText.setError(getString(R.string.spreadsheet_error));
-                }
-
-                break;
+                Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+                startActivityForResult(signInIntent, RC_SIGN_IN);
+            }
+            else {
+                mEditText.setError(getString(R.string.spreadsheet_error));
+            }
         }
     }
 
@@ -157,7 +151,7 @@ public class SyncActivity extends AppCompatActivity implements View.OnClickListe
                 // The ApiException status code indicates the detailed failure reason.
                 // Please refer to the GoogleSignInStatusCodes class reference for more information.
                 Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
-//                updateUI(null);
+                // updateUI(null);
 
                 mTextView.setVisibility(View.VISIBLE);
                 mEditText.setVisibility(View.VISIBLE);

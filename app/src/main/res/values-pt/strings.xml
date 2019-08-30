@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Seguros</string>
-    <string name="app_version">v2.3</string>
+    <string name="about">Sobre</string>
     <string name="empty">Vazio</string>
     <string name="login">Entrar</string>
     <string name="password">Senha</string>
     <string name="password_error">Senha incorreta</string>
     <string name="refresh">Atualizar</string>
     <string name="search">Procurar</string>
+    <string name="settings">Configurações</string>
     <string name="sync_text">Para apresentar a sua planilha de forma prática e segura, o aplicativo
         precisa da sua premissão para ler todos os arquivos do Google Drive. O aplicativo NÃO vai
         ler todos os arquivos.\n\nO aplicativo vai ler APENAS a planilha cujo nome você informar
@@ -15,5 +16,8 @@
         permissão.</string>
     <string name="spreadsheet_error">Nome incorreto</string>
     <string name="spreadsheet_name">Nome da planilha</string>
+    <string name="version">Versão</string>
+    <string name="version_num">v2.6</string>
     <string name="version_url">https://github.com/arm332/seguros/</string>
+    <string name="website">Página Web</string>
 </resources>

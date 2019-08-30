@@ -1,10 +1,10 @@
 package com.arm332.seguros2;
 
 import android.content.Intent;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.SearchView;
+import androidx.appcompat.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -54,6 +54,9 @@ public class ListActivity extends AppCompatActivity implements AdapterView.OnIte
         switch (item.getItemId()) {
 //            case R.id.action_search:
 //                return true;
+            case R.id.action_settings:
+                startActivity(new Intent(this, SettingsActivity.class));
+                return true;
             case R.id.action_sync:
                  Intent intent = new Intent(this, SyncActivity.class);
                  startActivityForResult(intent, RC_SYNC);
