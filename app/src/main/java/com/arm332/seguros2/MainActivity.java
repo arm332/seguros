@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
+
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -24,8 +26,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mPrefs = getSharedPreferences(getPackageName() + "_preferences", MODE_PRIVATE);
-        mPasswordHash = mPrefs.getString("password_hash", null);
+        // mPrefs = getSharedPreferences(getPackageName() + "_preferences", MODE_PRIVATE);
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        mPasswordHash = mPrefs.getString(SettingsActivity.PASSWORD_KEY, null);
 
         mPassword1 = findViewById(R.id.textView1);
         mPassword1.setOnEditorActionListener(this);
