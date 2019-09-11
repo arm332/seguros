@@ -14,6 +14,7 @@
         ler todos os arquivos.\n\nO aplicativo vai ler APENAS a planilha cujo nome você informar
         abaixo. Mas, para encontrar a sua planilha pelo nome, o aplicativo precisa dessa
         permissão.</string>
+    <string name="spreadsheet">Planilha</string>
     <string name="spreadsheet_error">Nome incorreto</string>
     <string name="spreadsheet_name">Nome da planilha</string>
     <string name="version">Versão</string>

@@ -26,7 +26,6 @@ import com.google.api.services.drive.DriveScopes;
 import java.util.Collections;
 
 public class SyncActivity extends AppCompatActivity implements View.OnClickListener {
-    private static final String SPREADSHEET_NAME = "spreadsheet_name";
     private static final String TAG = "SyncActivity";
     private static final Integer RC_SIGN_IN = 1;
     private SharedPreferences mPrefs;
@@ -42,7 +41,8 @@ public class SyncActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_sync);
 
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String spreadsheetName = mPrefs.getString(SPREADSHEET_NAME, "Seguros - editar somente esse aqui Adriana");
+        String spreadsheetName = mPrefs.getString(SettingsActivity.SPREADSHEET_KEY,
+                "Seguros - editar somente esse aqui Adriana");
 
         mTextView = findViewById(R.id.textView);
 //        mTextView.setVisibility(View.GONE);
@@ -102,7 +102,7 @@ public class SyncActivity extends AppCompatActivity implements View.OnClickListe
                 mProgressBar.setVisibility(View.VISIBLE);
 
                 SharedPreferences.Editor editor = mPrefs.edit();
-                editor.putString(SPREADSHEET_NAME, spreadsheetName);
+                editor.putString(SettingsActivity.SPREADSHEET_KEY, spreadsheetName);
                 editor.apply();
 
                 Intent signInIntent = mGoogleSignInClient.getSignInIntent();
