@@ -17,6 +17,8 @@
     <string name="spreadsheet">Planilha</string>
     <string name="spreadsheet_error">Nome incorreto</string>
     <string name="spreadsheet_name">Nome da planilha</string>
+    <string name="spreadsheet_not_found">Planilha não encontrada</string>
+    <string name="update_successfully">Atualização bem sucedida</string>
     <string name="version">Versão</string>
     <string name="version_num">v2.6</string>
     <string name="version_url">https://github.com/arm332/seguros/</string>

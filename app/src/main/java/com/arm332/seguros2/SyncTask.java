@@ -20,15 +20,18 @@ public class SyncTask extends AsyncTask<String, Void, String> {
     private static final String APPLICATION_NAME = "Seguros";
     private WeakReference<SyncActivity> mActivity;
     private GoogleAccountCredential mCredential;
+    private String mNotFound;
 
     SyncTask(SyncActivity activity, GoogleAccountCredential credential) {
         mActivity = new WeakReference<>(activity);
         mCredential = credential;
+
+        mNotFound = activity.getString(R.string.spreadsheet_not_found);
     }
 
     @Override
     protected String doInBackground(String... params) {
-        String result = null;
+        String result = mNotFound;
 
         // HttpTransport transport = GoogleNetHttpTransport.newTrustedTransport(); // JKS not found
         // HttpTransport transport = AndroidHttp.newCompatibleTransport(); // Deprecated
@@ -63,16 +66,14 @@ public class SyncTask extends AsyncTask<String, Void, String> {
                             Context.MODE_PRIVATE);
                     driveService.files().export(file.getId(), "text/csv")
                             .executeMediaAndDownloadTo(outputStream);
+
+                    result = null;
                 }
             }
-            else {
-                // TODO: pt-br this
-                result = "Spreadsheet not found";
-            }
-
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
+            // e.printStackTrace();
             result = e.getMessage();
-            e.printStackTrace();
         }
 
         return result;

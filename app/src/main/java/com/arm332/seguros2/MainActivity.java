@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             SharedPreferences.Editor editor = mPrefs.edit();
-            editor.putString("password_hash", passwordHash);
+            editor.putString(SettingsActivity.PASSWORD_KEY, passwordHash);
             editor.apply();
         }
 

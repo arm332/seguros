@@ -15,6 +15,8 @@
     <string name="spreadsheet">Spreadsheet</string>
     <string name="spreadsheet_error">Name incorrect</string>
     <string name="spreadsheet_name">Spreadheet name</string>
+    <string name="spreadsheet_not_found">Spreadsheet not found</string>
+    <string name="update_successfully">Update successfully</string>
     <string name="version">Version</string>
     <string name="version_num">v2.7</string>
     <string name="version_url">https://github.com/arm332/seguros/</string>
