@@ -72,23 +72,8 @@ public class SyncActivity extends AppCompatActivity implements View.OnClickListe
 
         // Check for existing Google Sign In account, if the user is already signed in
         // the GoogleSignInAccount will be non-null.
-//        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-//        updateUI(account);
-
-//        if (account != null) {
-//            GoogleAccountCredential credential = GoogleAccountCredential.usingOAuth2(
-//                    getApplicationContext(),
-//                    Collections.singleton(DriveScopes.DRIVE_READONLY));
-//            credential.setSelectedAccount(account.getAccount());
-//
-//            if (spreadsheetName != null && spreadsheetName.length() != 0) {
-//                new SyncTask(this, credential).execute(spreadsheetName);
-//                mTextView.setVisibility(View.GONE);
-//                mEditText.setVisibility(View.GONE);
-//                mSignInButton.setVisibility(View.GONE);
-//                mProgressBar.setVisibility(View.VISIBLE);
-//            }
-//        }
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        updateUI(account);
     }
 
     @Override
@@ -97,10 +82,6 @@ public class SyncActivity extends AppCompatActivity implements View.OnClickListe
             String spreadsheetName = mEditText.getText().toString().trim();
 
             if (!spreadsheetName.isEmpty()) {
-                SharedPreferences.Editor editor = mPrefs.edit();
-                editor.putString(SettingsActivity.SPREADSHEET_KEY, spreadsheetName);
-                editor.apply();
-
                 Intent signInIntent = mGoogleSignInClient.getSignInIntent();
                 startActivityForResult(signInIntent, RC_SIGN_IN);
             }
@@ -124,25 +105,6 @@ public class SyncActivity extends AppCompatActivity implements View.OnClickListe
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 // Signed in successfully, show authenticated UI.
                 updateUI(account);
-
-//                if (account != null) {
-//                    GoogleAccountCredential credential = GoogleAccountCredential.usingOAuth2(
-//                            getApplicationContext(),
-//                            Collections.singleton(DriveScopes.DRIVE_READONLY));
-//                    credential.setSelectedAccount(account.getAccount());
-//
-//                    String spreadsheetName = mEditText.getText().toString().trim();
-//
-//                    if (spreadsheetName.length() != 0) {
-//                        new SyncTask(this, credential).execute(spreadsheetName);
-//                    }
-//                    else {
-//                        updateUI(null);
-//                    }
-//                }
-//                else {
-//                    updateUI(null);
-//                }
             } catch (ApiException e) {
                 // The ApiException status code indicates the detailed failure reason.
                 // Please refer to the GoogleSignInStatusCodes class reference for more information.
@@ -154,35 +116,39 @@ public class SyncActivity extends AppCompatActivity implements View.OnClickListe
 
     public void updateUI(GoogleSignInAccount account) {
         if (account != null) {
+            String spreadsheetName = mEditText.getText().toString().trim();
+
+            SharedPreferences.Editor editor = mPrefs.edit();
+            editor.putString(SettingsActivity.EMAIL_KEY, account.getEmail());
+            editor.putString(SettingsActivity.SPREADSHEET_KEY, spreadsheetName);
+            editor.apply();
+
             GoogleAccountCredential credential = GoogleAccountCredential.usingOAuth2(
                     getApplicationContext(),
                     Collections.singleton(DriveScopes.DRIVE_READONLY));
             credential.setSelectedAccount(account.getAccount());
 
-            String spreadsheetName = mEditText.getText().toString().trim();
+            new SyncTask(this, credential).execute(spreadsheetName);
 
-            if (!spreadsheetName.isEmpty()) {
-                new SyncTask(this, credential).execute(spreadsheetName);
-                mTextView.setVisibility(View.GONE);
-                mEditText.setVisibility(View.GONE);
-                mSignInButton.setVisibility(View.GONE);
-                mProgressBar.setVisibility(View.VISIBLE);
-                return;
-            }
+            mTextView.setVisibility(View.GONE);
+            mEditText.setVisibility(View.GONE);
+            mSignInButton.setVisibility(View.GONE);
+            mProgressBar.setVisibility(View.VISIBLE);
         }
-
-        mTextView.setVisibility(View.VISIBLE);
-        mEditText.setVisibility(View.VISIBLE);
-        mSignInButton.setVisibility(View.VISIBLE);
-        mProgressBar.setVisibility(View.GONE);
+        else {
+            mTextView.setVisibility(View.VISIBLE);
+            mEditText.setVisibility(View.VISIBLE);
+            mSignInButton.setVisibility(View.VISIBLE);
+            mProgressBar.setVisibility(View.GONE);
+        }
     }
 
     // Used on SyncTask
 
     public void onSyncTaskComplete(String result) {
         if (result != null) {
-            updateUI(null);
             Toast.makeText(this, result, Toast.LENGTH_LONG).show();
+            updateUI(null);
         }
         else {
             Toast.makeText(this, R.string.update_successfully, Toast.LENGTH_LONG).show();

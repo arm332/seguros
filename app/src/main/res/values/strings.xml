@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Seguros</string>
+    <string name="account">Account</string>
     <string name="about">About</string>
+    <string name="email">E-Mail</string>
     <string name="empty">Empty</string>
     <string name="login">Log in</string>
     <string name="password">Password</string>
@@ -8,6 +10,8 @@
     <string name="refresh">Refresh</string>
     <string name="search">Search</string>
     <string name="settings">Settings</string>
+    <string name="signout">Sign out</string>
+    <string name="signout_summary">Sign out from this account.</string>
     <string name="sync_text">To present your spreadsheet in a simple and secure way, the application
         needs you permission to read all Google Drive files.\n\nThe application will NOT read all
         files. The application will read ONLY the spreadsheet whose name you enter below. But to

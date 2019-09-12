@@ -15,8 +15,8 @@
         android:title="@string/refresh"
         app:showAsAction="ifRoom"/>
 
-    <item
+    <!-- <item
         android:id="@+id/action_settings"
         android:title="@string/settings"
-        app:showAsAction="never"/>
+        app:showAsAction="never"/> -->
 </menu>

@@ -4,16 +4,30 @@
 
     <PreferenceCategory
         app:iconSpaceReserved="false"
-        android:key="spreadsheet_category"
-        android:title="@string/spreadsheet">
+        android:key="account_category"
+        android:title="@string/account">
+
+        <Preference
+            app:iconSpaceReserved="false"
+            android:key="email_key"
+            android:title="@string/email"
+            android:summary="@string/email" />
 
         <Preference
             app:iconSpaceReserved="false"
             android:key="spreadsheet_key"
             android:title="@string/spreadsheet_name"
             android:summary="@string/spreadsheet_name">
-            <intent android:action="com.arm332.seguros2.SyncActivity" />
+            <intent android:action="android.intent.action.VIEW"
+                android:targetPackage="com.arm332.seguros2"
+                android:targetClass="com.arm332.seguros2.SyncActivity" />
         </Preference>
+
+        <Preference
+            app:iconSpaceReserved="false"
+            android:key="signout_key"
+            android:title="@string/signout"
+            android:summary="@string/signout_summary" />
     </PreferenceCategory>
 
     <PreferenceCategory
