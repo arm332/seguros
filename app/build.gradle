@@ -1,19 +1,26 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
+    signingConfigs {
+        releae {
+            storeFile file('C:\\Users\\ARM\\Documents\\seguros-android\\extras\\seguros.keystore')
+            keyAlias 'seguros'
+        }
+    }
+    compileSdkVersion 29
     defaultConfig {
         applicationId "com.arm332.seguros2"
         minSdkVersion 16
-        targetSdkVersion 28
-        versionCode 27
-        versionName '2.7'
+        targetSdkVersion 29
+        versionCode 28
+        versionName '2.8'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.releae
         }
     }
     productFlavors {
@@ -22,19 +29,19 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    testImplementation 'junit:junit:4.13-beta-3'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    implementation('com.google.android.gms:play-services-auth:17.0.0') {
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    testImplementation 'junit:junit:4.13'
+    androidTestImplementation 'androidx.test:runner:1.3.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation('com.google.android.gms:play-services-auth:18.1.0') {
         exclude group: 'com.android.support'
     }
-    implementation('com.google.api-client:google-api-client-android:1.30.2') {
+    implementation('com.google.api-client:google-api-client-android:1.30.10') {
         exclude group: 'org.apache.httpcomponents'
     }
     implementation('com.google.apis:google-api-services-drive:v3-rev99-1.23.0') {
         exclude group: 'org.apache.httpcomponents'
     }
-    implementation 'androidx.preference:preference:1.1.0'
+    implementation 'androidx.preference:preference:1.1.1'
 }

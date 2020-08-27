@@ -62,7 +62,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         @Override
         public boolean onPreferenceClick(Preference preference) {
-            String key = preference.getKey();
+            // String key = preference.getKey();
 
             // if (SIGNOUT_KEY.equals(key )) {
                 // TODO: show dialog and sign user out

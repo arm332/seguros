@@ -24,7 +24,7 @@
     <string name="spreadsheet_not_found">Planilha não encontrada</string>
     <string name="update_successfully">Atualização bem sucedida</string>
     <string name="version">Versão</string>
-    <string name="version_num">v2.6</string>
+    <string name="version_num">v2.8</string>
     <string name="version_url">https://github.com/arm332/seguros/</string>
     <string name="website">Página Web</string>
 </resources>

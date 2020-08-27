@@ -51,19 +51,17 @@ public class ListActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-//            case R.id.action_search:
-//                return true;
-            case R.id.action_settings:
-                startActivity(new Intent(this, SettingsActivity.class));
-                return true;
-            case R.id.action_sync:
-                 Intent intent = new Intent(this, SyncActivity.class);
-                 startActivityForResult(intent, RC_SYNC);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        //            case R.id.action_search:
+        //                return true;
+        //            case R.id.action_settings:
+        //                startActivity(new Intent(this, SettingsActivity.class));
+        //                return true;
+        if (item.getItemId() == R.id.action_sync) {
+            Intent intent = new Intent(this, SyncActivity.class);
+            startActivityForResult(intent, RC_SYNC);
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

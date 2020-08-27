@@ -36,12 +36,14 @@ final class Utils {
             String line;
 
             if ((line = buffer.readLine()) != null) {
-                String[] headers = line.split(",");
+                // String[] headers = line.split(",");
+                String[] headers = splitLine(line);
                 int lineNumber = 1;
 
                 while ((line = buffer.readLine()) != null) {
                     if (lineNumber == position) {
-                        String[] values = line.split(",", -1);
+                        // String[] values = line.split(",", -1);
+                        String[] values = splitLine(line);
 
                         for (int i = 0; i < headers.length; i++) {
                             sb.append("<p><b>");
@@ -91,7 +93,8 @@ final class Utils {
                 int lineNumber = 1;
 
                 while ((line = buffer.readLine()) != null) {
-                    String[] values = line.split(",");
+                    // String[] values = line.split(",");
+                    String[] values = splitLine(line);
 
                     // Skip lines without value for second column (blank lines)
                     if (values.length > TITLE_COLUMN && values[TITLE_COLUMN].length() > 0) {
@@ -128,6 +131,27 @@ final class Utils {
         }
 
         return list;
+    }
+
+    private static String[] splitLine(String line) {
+        // https://stackoverflow.com/a/18893443, https://stackoverflow.com/a/1757107
+        // return line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+
+        // https://stackoverflow.com/a/2120714, https://stackoverflow.com/a/2608682
+        List<String> result = new ArrayList<>();
+        int start = 0;
+        boolean inQuotes = false;
+        for (int current = 0; current < line.length(); current++) {
+            if (line.charAt(current) == '\"') inQuotes = !inQuotes; // toggle state
+            boolean atLastChar = (current == line.length() - 1);
+            if(atLastChar) result.add(line.substring(start).replace("\"", ""));
+            else if (line.charAt(current) == ',' && !inQuotes) {
+                result.add(line.substring(start, current).replace("\"", ""));
+                start = current + 1;
+            }
+        }
+
+        return result.toArray(new String[0]);
     }
 
     static String str2hex(String text) {

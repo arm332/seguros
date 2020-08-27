@@ -37,5 +37,10 @@ Seguros is a simple Google Sheets reader.
 - Moving Past GoogleApiClient <https://android-developers.googleblog.com/2017/11/moving-past-googleapiclient_21.html>
 - Sample Andorid Apps <https://github.com/codepath/android_guides/wiki/Sample-Android-Apps>
 - Search for Files and Team Drives <https://developers.google.com/drive/api/v3/search-parameters>
+- Update Google Play Services to the latest version <https://stackoverflow.com/a/47645136>.
+- Google Sign In error 12500 <https://stackoverflow.com/q/47632035>
+- How to get the SHA-1 fingerprint certificate in Android Studio for debug mode? <https://stackoverflow.com/q/27609442>
+- I can’t find the Android keytool <https://stackoverflow.com/q/2997348>
+- Android Google Sign In DEVELOPER_ERROR 10 <https://stackoverflow.com/q/52657938>
 - Stack Overflow <https://stackoverflow.com/>
 - Vectr <https://vectr.com/>

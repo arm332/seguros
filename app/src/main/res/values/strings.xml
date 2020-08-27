@@ -22,7 +22,7 @@
     <string name="spreadsheet_not_found">Spreadsheet not found</string>
     <string name="update_successfully">Update successfully</string>
     <string name="version">Version</string>
-    <string name="version_num">v2.7</string>
+    <string name="version_num">v2.8</string>
     <string name="version_url">https://github.com/arm332/seguros/</string>
     <string name="website">Web Site</string>
 </resources>

@@ -3,8 +3,10 @@ package com.arm332.seguros2;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -108,6 +110,19 @@ public class SyncActivity extends AppCompatActivity implements View.OnClickListe
             } catch (ApiException e) {
                 // The ApiException status code indicates the detailed failure reason.
                 // Please refer to the GoogleSignInStatusCodes class reference for more information.
+                //
+                // Status code = 12500
+                //
+                // Update Google Play Services to the latest version. See
+                // <https://stackoverflow.com/a/47645136>.
+                //
+                // Check SHA-1 fingerprint certificate. Android Studio/Gradle/app/Tasks/android/signingReport.
+                // See <https://stackoverflow.com/a/34223470>
+                //
+                // Or usint keytool. See <https://developers.google.com/android/guides/client-auth>.
+                //
+                // Can't find keytool. Use cd /Applications/Android Studio.app/Contents/jre/jdk/Contents/Home/bin
+                // and ./keytool to run it. See <https://stackoverflow.com/a/2998451>.
                 Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
                 updateUI(null);
             }
