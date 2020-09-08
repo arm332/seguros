@@ -18,9 +18,9 @@
             android:key="spreadsheet_key"
             android:title="@string/spreadsheet_name"
             android:summary="@string/spreadsheet_name">
-            <intent android:action="android.intent.action.VIEW"
+            <!-- <intent android:action="android.intent.action.VIEW"
                 android:targetPackage="com.arm332.seguros2"
-                android:targetClass="com.arm332.seguros2.SyncActivity" />
+                android:targetClass="com.arm332.seguros2.SyncActivity" /> -->
         </Preference>
 
         <Preference

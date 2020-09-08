@@ -42,7 +42,6 @@ public class ListActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-
         System.out.println("count: " + mListView.getCount());
         MenuItem searchItem = menu.findItem(R.id.action_search);
         searchItem.setVisible((mListView.getCount() != 0));
@@ -51,11 +50,15 @@ public class ListActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        //            case R.id.action_search:
-        //                return true;
-        //            case R.id.action_settings:
-        //                startActivity(new Intent(this, SettingsActivity.class));
-        //                return true;
+//        if (item.getItemId() == R.id.action_search) {
+//                return true;
+//        }
+
+        if (item.getItemId() == R.id.action_settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
+            return true;
+        }
+
         if (item.getItemId() == R.id.action_sync) {
             Intent intent = new Intent(this, SyncActivity.class);
             startActivityForResult(intent, RC_SYNC);
