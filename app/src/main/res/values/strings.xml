@@ -11,7 +11,7 @@
     <string name="search">Search</string>
     <string name="settings">Settings</string>
     <string name="signout">Sign out</string>
-    <string name="signout_message">Sign out from this account. clear data and close the app?</string>
+    <string name="signout_message">Sign out from this account, clear data and close the app?</string>
     <string name="signout_summary">Sign out from this account.</string>
     <string name="sync_text">To present your spreadsheet in a simple and secure way, the application
         needs you permission to read all Google Drive files.\n\nThe application will NOT read all
@@ -23,7 +23,7 @@
     <string name="spreadsheet_not_found">Spreadsheet not found</string>
     <string name="update_successfully">Update successfully</string>
     <string name="version">Version</string>
-    <string name="version_num">v2.8</string>
+    <string name="version_num">v2.9</string>
     <string name="version_url">https://github.com/arm332/seguros/</string>
     <string name="website">Web Site</string>
 </resources>
