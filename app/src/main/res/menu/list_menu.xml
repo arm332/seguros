@@ -19,4 +19,9 @@
         android:id="@+id/action_settings"
         android:title="@string/settings"
         app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_signout"
+        android:title="@string/signout"
+        app:showAsAction="never"/>
 </menu>

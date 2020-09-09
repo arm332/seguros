@@ -12,13 +12,12 @@
     <string name="search">Procurar</string>
     <string name="settings">Configurações</string>
     <string name="signout">Sair</string>
-    <string name="signout_message">Sair dessa conta, limpar os dados e fechar o aplicativo?</string>
-    <string name="signout_summary">Sair dessa conta.</string>
-    <string name="sync_text">Para apresentar a sua planilha de forma prática e segura, o aplicativo
-        precisa da sua premissão para ler todos os arquivos do Google Drive. O aplicativo NÃO vai
-        ler todos os arquivos.\n\nO aplicativo vai ler APENAS a planilha cujo nome você informar
-        abaixo. Mas, para encontrar a sua planilha pelo nome, o aplicativo precisa dessa
-        permissão.</string>
+    <string name="signout_message">Isso vai fazer logout dessa conta, limpar os dados armazenados
+        no telefone e fechar o aplicativo.</string>
+    <string name="sync_text">Para apresentar a sua planilha, o aplicativo precisa da sua premissão
+        para ver e fazer download de todos os arquivos do Google Drive, visualizar seu endereço de
+        e-mail e ver suas informações pessoais, inclusive aquelas que você disponibilizou
+        publicamente\n\nNome da planilha</string>
     <string name="spreadsheet">Planilha</string>
     <string name="spreadsheet_error">Nome incorreto</string>
     <string name="spreadsheet_name">Nome da planilha</string>

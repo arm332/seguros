@@ -11,12 +11,11 @@
     <string name="search">Search</string>
     <string name="settings">Settings</string>
     <string name="signout">Sign out</string>
-    <string name="signout_message">Sign out from this account, clear data and close the app?</string>
-    <string name="signout_summary">Sign out from this account.</string>
-    <string name="sync_text">To present your spreadsheet in a simple and secure way, the application
-        needs you permission to read all Google Drive files.\n\nThe application will NOT read all
-        files. The application will read ONLY the spreadsheet whose name you enter below. But to
-        find your spreadsheet by name, the application needs this permission.</string>
+    <string name="signout_message">This will sign out from this account, clear data stored on the
+        phone and close the app.</string>
+    <string name="sync_text">To present your spreadsheet, the application needs you permission to
+        see and download all your Google Drive files, visualize your e-mail address and see your
+        personal information including the ones you made public.\n\nSpreadsheet name</string>
     <string name="spreadsheet">Spreadsheet</string>
     <string name="spreadsheet_error">Name incorrect</string>
     <string name="spreadsheet_name">Spreadheet name</string>

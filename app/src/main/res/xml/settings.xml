@@ -22,12 +22,6 @@
                 android:targetPackage="com.arm332.seguros2"
                 android:targetClass="com.arm332.seguros2.SyncActivity" /> -->
         </Preference>
-
-        <Preference
-            app:iconSpaceReserved="false"
-            android:key="signout_key"
-            android:title="@string/signout"
-            android:summary="@string/signout_summary" />
     </PreferenceCategory>
 
     <PreferenceCategory
