@@ -1,8 +1,8 @@
 # Política de Privacidade
 
-Última atualização: 28 de dezembro de 2018
+Última atualização: 8 de outubro de 2020
 
-Eu, André Ribeiro Moreira, CPF 999.999.999-99, que ofereço os serviços do sítio eletrônico e do aplicativo para dispositivos móveis Seguros ("Serviços"), provejo esta política de privacidade e proteção de dados pessoais ("Política de Privacidade") que descreve quais informações são coletadas, como são armazenadas, tratadas e utilizadas quando você usa estes Serviços.
+Eu, André Moreira, CPF 999.999.999-99, que ofereço os do aplicativo para dispositivos móveis Seguros ("Serviços"), provejo esta política de privacidade e proteção de dados pessoais ("Política de Privacidade") que descreve quais informações são coletadas, como são armazenadas, tratadas e utilizadas quando você usa estes Serviços.
 
 Ao utilizar estes Serviços você concorda expressa e integralmente com esta Política de Privacidade. Leia-a com atenção.
 
@@ -10,7 +10,7 @@ Ao utilizar estes Serviços você concorda expressa e integralmente com esta Pol
 
 É toda informação que possa identificar você pessoalmente de acordo com a Lei 12.965/2014 (Marco Civil da Internet) e a Lei 13.709/2018 (Lei Geral de Proteção de Dados Pessoais).
 
-Não são coletadas, armazenadas e nem utilizadas menhuma informação pessoal sua.
+Não são coletadas, armazenadas e nem utilizadas nenhuma informação pessoal sua.
 
 ## Cookies
 
@@ -30,14 +30,14 @@ São arquivos de texto que ficam armazenados nos computadores utilizados para of
 
 São tratados de acordo com as políticas de privacidade do sistema operacional dos computadores utilizados pelos Serviços.
 
-São usados para análise, correção e prevenção de erros.
+Não são registrados, armazenados e nem utilizados.
 
 ## Serviços de Terceiros
 
 Estes Serviços fazem uso de serviços de terceiros que têm as suas próprias políticas de privacidade. Eu não controlo e não assumo nenhuma responsabilidade pelas práticas adotadas por eles. Recomendo que você leia atentamente a política de privacidade deles. Segue abaixo os nomes e endereços eletrônicos das políticas de privacidade dos principais serviços de terceiros utilizados:
 
-Google.com - <https://www.google.com/policies/privacy/>
-GitHub.com - <https://help.github.com/articles/github-privacy-statement/>
+- Google.com <https://www.google.com/policies/privacy/>
+- GitHub.com <https://help.github.com/articles/github-privacy-statement/>
 
 ## Prestadores de Serviços
 
@@ -45,7 +45,7 @@ Eu posso contratar indivíduos ou empresas prestadores de serviços para auxilia
 
 ## Segurança da Informação
 
-São utilizadas as melhores práticas e técnicas de segurança da informação acessíveis atualmente. É recomendável lembrar que que nenhum método de transmição ou de armazenamento digital é 100% seguro. Por este motivo, eu me eximo de qualquer dano ou prejuízo decorrente de falha na segurança da informação salvo nos casos em que eu tiver agido com dolo ou culpa.
+São utilizadas as melhores práticas e técnicas de segurança da informação atualmente acessíveis no mercado. É recomendável lembrar que que nenhum método de transmição ou de armazenamento digital é 100% seguro. Por este motivo, eu me eximo de qualquer dano ou prejuízo decorrente de falha na segurança da informação salvo nos casos em que eu tiver agido com dolo ou culpa.
 
 ## Alterações
 

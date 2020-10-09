@@ -1,8 +1,8 @@
 # Termos de Uso
 
-Última atualização: 28 de abril de 2018
+Última atualização: 8 de outubro de 2020
 
-Eu, André Ribeiro Moreira, CPF 999.999.999-99, que ofereço os serviços do sítio eletrônico e do aplicativo para dispositivos móveis Seguros Lite ("Serviços"), provejo os termos deste contrato de adesão ("Termos de Uso") que rejem utilização dos mesmos.
+Eu, André Moreira, CPF 999.999.999-99, que ofereço os serviços do aplicativo para dispositivos móveis Seguros ("Serviços"), provejo os termos deste contrato de adesão ("Termos de Uso") que rejem utilização dos mesmos.
 
 Ao utilizar estes Serviços você concorda expressa e integralmente com estes Termos de Uso. Leia-os com atenção.
 
@@ -22,7 +22,7 @@ Eu reservo-me o direito de recusar os Serviços a qualquer um, a qualquer moment
 
 ## Privacidade
 
-Eu considero a sua privacidade um direito fundamental seu e sei a importância que a sua privacidade tem para você. Minha Política de Privacidade é parte integrante destes Termos de Uso e pode ser acessada através do endereço eletrônico PRIVACY.md.
+Minha Política de Privacidade é parte integrante destes Termos de Uso e pode ser acessada através do endereço eletrônico [PRIVACY.md](PRIVACY.md).
 
 ## Alterações
 
